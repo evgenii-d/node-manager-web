@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Manager</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/node-manager.css">
+    <script defer src="/static/node-manager.js"></script>
+</head>
+
+<body>
+    <h1>Node Manager</h1>
+    <fieldset id="node-manager">
+        <legend>Search Nodes</legend>
+        <select id="network-adapters">
+            <option value="" disabled selected>Choose Address</option>
+        </select>
+        <button id="scan-network">Scan network</button>
+        <br>
+        <br>
+        <button id="update-node-names">Update node names</button>
+        <button id="reboot-nodes">Reboot nodes</button>
+        <button id="poweroff-nodes">Poweroff nodes</button>
+        <button id="toggle-selection" data-state="true">
+            Toggle selection
+        </button>
+        <ul id="services-list"></ul>
+    </fieldset>
+</body>
+
+</html>
