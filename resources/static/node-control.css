@@ -1,0 +1,76 @@
+body {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+header {
+    text-align: center;
+}
+
+header input[type="text"] {
+    all: unset;
+    width: 50%;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+    border-bottom: 2px dashed #000;
+}
+
+pre {
+    font-family: "IBMPlexMono";
+    font-weight: 400;
+    min-height: 150px;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 2px solid #000;
+
+}
+
+pre::before,
+pre:not(:empty)::before {
+    content: "Nothing here yet...";
+    color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    padding: 1rem;
+    white-space: pre-wrap;
+    display: block;
+}
+
+pre:not(:empty)::before {
+    content: "";
+}
+
+pre[contenteditable="true"] {
+    border: 2px dashed #000;
+}
+
+input[type="text"] {
+    font-size: 1rem;
+    padding: .5rem;
+}
+
+input[type="range"] {
+    accent-color: #000;
+    vertical-align: middle;
+}
+
+.diamond {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    position: relative;
+}
+
+.diamond::before {
+    content: "";
+    display: block;
+    width: 70%;
+    height: 70%;
+    background-color: #000;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 20%;
+    left: 20%;
+}

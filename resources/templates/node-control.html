@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Control - {{ address }}:{{ port }}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/node-control.css">
+    <script defer src="/static/node-control-data.js"></script>
+    <script defer src="/static/node-control.js"></script>
+</head>
+
+<body data-address="{{ address }}" data-port="{{ port }}">
+    <header>
+        <input type="text" maxlength="40" id="node-name" data-name="Media Node" value="Media Node">
+        <div id="node-address">{{ address }}:{{ port }}</div>
+        <div id="node-hostname">&nbsp;</div>
+
+    </header>
+
+    <h2>
+        <div class="diamond" id="new-node-hostname"></div>
+        System
+    </h2>
+    <fieldset id="power-control">
+        <legend>Power</legend>
+        <button data-command="reboot">Reboot</button>
+        <button data-command="shutdown">Poweroff</button>
+    </fieldset>
+
+    <fieldset id="displays-control">
+        <legend>Displays</legend>
+
+        <h3>Available Displays</h3>
+        <button data-command="displays">Get Displays</button>
+        <pre data-output="displays"></pre>
+
+        <h3>Detect Displays</h3>
+        <button data-command="detect-start">Start</button>
+        <button data-command="detect-stop">Stop</button>
+        <button data-command="detect-restart">Restart</button>
+
+        <h3>Displays Configurations</h3>
+        <button data-command="displays-config">Get configurations</button>
+        <pre data-output="displays-config"></pre>
+
+        <h3>Apply Display Configuration</h3>
+        <pre contenteditable="true" data-input="add-display-config"></pre>
+        <button data-command="add-display-config">Apply configuration</button>
+
+        <h3>Delete Display Configuration</h3>
+        <label>
+            Display name
+            <input type="text" data-input="delete-display-config">
+        </label>
+        <button data-command="delete-display-config">Delete</button>
+    </fieldset>
+
+    <fieldset id="audio-control">
+        <legend>Audio</legend>
+
+        <h3>Available Devices</h3>
+        <button data-command="audio-devices">Get devices</button>
+        <pre data-output="audio-devices"></pre>
+
+        <h3>Default Audio Device</h3>
+        <button data-command="default-audio">Default device</button>
+        <pre data-output="default-audio"></pre>
+
+        <h3>Set Default Audio Device</h3>
+        <label>
+            Device ID
+            <input type="text" data-input="default-audio-id">
+        </label>
+        <button data-command="set-default-audio">Set device</button>
+
+        <h3>Current Volume</h3>
+        <button data-command="audio-volume">Get volume</button>
+        <pre data-output="audio-volume"></pre>
+
+        <h3>Set Volume for Default Device</h3>
+        <input type="range" min="0" max="150" data-input="set-audio-volume">
+        <button data-command="set-audio-volume">Set volume</button>
+    </fieldset>
+
+    <fieldset id="wifi-control">
+        <legend>WiFi</legend>
+
+        <h3>Available Interfaces</h3>
+        <button data-command="wifi-interfaces">Get interfaces</button>
+        <pre data-output="wifi-interfaces"></pre>
+
+        <h3>Saved Connections</h3>
+        <button data-command="wifi-connections">Get connections</button>
+        <pre data-output="wifi-connections"></pre>
+
+        <h3>Delete Connection</h3>
+        <label> SSID
+            <input type="text" data-input="delete-connection">
+        </label>
+        <button data-command="delete-connection">Delete</button>
+
+        <h3>Connect Network</h3>
+        <label>SSID
+            <input type="text" data-input="connect-network">
+        </label>
+        <pre contenteditable="true" data-input="connect-network"></pre>
+        <button data-command="connect-network">Connect</button>
+
+        <h3>Disconnect Network</h3>
+        <label> SSID
+            <input type="text" data-input="disconnect-network">
+        </label>
+        <button data-command="disconnect-network">Disconnect</button>
+
+        <h3>Scan WiFi networks</h3>
+        <label>Interface Name
+            <input type="text" data-input="scan-networks">
+        </label>
+        <button data-command="scan-networks">Scan</button>
+        <pre data-output="scan-networks"></pre>
+    </fieldset>
+
+    <fieldset id="mouse-cursor-control">
+        <legend>Mouse cursor</legend>
+        <button data-command="cursor-enable">Enable</button>
+        <button data-command="cursor-disable">Disable</button>
+
+        <h3>Get cursor size</h3>
+        <pre data-output="get-cursor-size"></pre>
+        <button data-command="get-cursor-size">Get size</button>
+
+        <h3>Set cursor size</h3>
+        <select data-input="set-cursor-size">
+            <option value="16">16</option>
+            <option value="24" selected>24</option>
+            <option value="32">32</option>
+            <option value="48">48</option>
+            <option value="64">64</option>
+            <option value="128">128</option>
+            <option value="256">256</option>
+        </select>
+        <button data-command="set-cursor-size">Set size</button>
+
+    </fieldset>
+
+    <h2>Web Browser</h2>
+    <fieldset id="static-upload">
+        <legend>Static Upload</legend>
+        <input type="file" accept=".zip">
+        <button data-command="static-upload">Upload</button>
+        <br>
+        <br>
+        <span>
+            Available at
+            <a target="_blank" href="http://{{ address }}:{{ port }}/static/public">
+                http://{{ address }}:{{ port }}/static/public
+            </a>
+        </span>
+    </fieldset>
+
+    <fieldset id="web-browser-instances">
+        <legend>Instances Control</legend>
+
+        <h3>Available Instances</h3>
+        <button data-command="get-instances">Get Instances</button>
+        <pre data-output="get-instances"></pre>
+
+        <h3>Create Instance</h3>
+        <pre contenteditable="true" data-input="create-instance"></pre>
+        <button data-command="create-instance">Create</button>
+
+        <h3>Active Instances</h3>
+        <button data-command="active-instances">Get Instances</button>
+        <pre data-output="active-instances"></pre>
+
+        <h3>Modify Instance</h3>
+        <label>UUID
+            <input type="text" data-input="modify-instance-input">
+        </label>
+        <pre contenteditable="true" data-input="modify-instance-input"></pre>
+        <button data-command="modify-instance">Modify</button>
+
+        <h3>Delete Instance</h3>
+        <label>UUID
+            <input type="text" data-input="delete-instance-input">
+        </label>
+        <button data-command="delete-instance">Delete</button>
+
+        <h3>Command Instances</h3>
+        <button data-command="command-instances-start">Start</button>
+        <button data-command="command-instances-stop">Stop</button>
+        <button data-command="command-instances-restart">Restart</button>
+    </fieldset>
+
+    <fieldset id="web-browser-instance">
+        <legend>Instance Control</legend>
+        <h3>Command Instance</h3>
+        <label>UUID
+            <input type="text" data-input="command-instance-input">
+        </label>
+        <button data-command="command-instance-start">Start</button>
+        <button data-command="command-instance-stop">Stop</button>
+        <button data-command="command-instance-restart">Restart</button>
+    </fieldset>
+
+    <h2>Media Player</h2>
+    <fieldset id="media-player-instances">
+        <legend>Instances Control</legend>
+
+        <h3>Available Instances</h3>
+        <button data-command="get-instances">Get Instances</button>
+        <pre data-output="get-instances"></pre>
+
+        <h3>Create Instance</h3>
+        <pre contenteditable="true" data-input="create-instance"></pre>
+        <button data-command="create-instance">Create</button>
+
+        <h3>Active Instances</h3>
+        <button data-command="active-instances">Get Instances</button>
+        <pre data-output="active-instances"></pre>
+
+        <h3>Modify Instance</h3>
+        <label>UUID
+            <input type="text" data-input="modify-instance-input">
+        </label>
+        <pre contenteditable="true" data-input="modify-instance-input"></pre>
+        <button data-command="modify-instance">Modify</button>
+
+        <h3>Delete Instance</h3>
+        <label>UUID
+            <input type="text" data-input="delete-instance-input">
+        </label>
+        <button data-command="delete-instance">Delete</button>
+
+        <h3>Command Instances</h3>
+        <button data-command="command-instances-start">Start</button>
+        <button data-command="command-instances-stop">Stop</button>
+        <button data-command="command-instances-restart">Restart</button>
+    </fieldset>
+
+    <fieldset id="media-player-instance">
+        <legend>Instance Control</legend>
+
+        <label>UUID
+            <input type="text" data-input="media-player-instance-input">
+        </label>
+
+        <h3>Command Instance</h3>
+        <button data-command="command-instance-start">Start</button>
+        <button data-command="command-instance-stop">Stop</button>
+        <button data-command="command-instance-restart">Restart</button>
+
+        <h3>Playback Control</h3>
+
+        <button data-command="playback-control-play">Play</button>
+        <button data-command="playback-control-stop">Stop</button>
+        <button data-command="playback-control-next">Next</button>
+        <button data-command="playback-control-prev">Previous</button>
+        <button data-command="playback-control-pause">Pause</button>
+
+        <h3>Playlist Control</h3>
+        <label>Index
+            <input type="text" data-input="playlist-control-input">
+        </label>
+        <button data-command="playlist-control-goto">Goto playlist index</button>
+        <br>
+        <br>
+        <label>Playlist name
+            <input type="text" data-input="playlist-control-change">
+        </label>
+        <button data-command="playlist-control-change">Change playlist</button>
+        <br>
+        <br>
+        <button data-command="playlist-control-clear">Clear playlist</button>
+        <br>
+        <br>
+        <button data-command="playlist-control-status">Playlist status</button>
+        <pre data-output="playlist-control-status"></pre>
+
+        <h3>Audio Control</h3>
+        <button data-command="audio-volume">Current volume</button>
+        <pre data-output="audio-volume"></pre>
+        <label>
+            Volume (0-320)
+            <input type="text" data-input="set-audio-volume">
+        </label>
+        <button data-command="set-audio-volume">Set volume</button>
+        <br>
+        <br>
+        <br>
+        <button data-command="audio-devices">Audio devices</button>
+        <pre data-output="audio-devices"></pre>
+        <label>
+            Audio Device
+            <input type="text" data-input="set-audio-device">
+        </label>
+        <button data-command="set-audio-device">Set audio device</button>
+    </fieldset>
+
+    <h2>Media Files</h2>
+    <fieldset id="media-files-control">
+        <legend>Files Control</legend>
+
+        <button data-command="media-files-control">Get files</button>
+        <pre data-output="media-files-control"></pre>
+        <br>
+        <br>
+        <input type="file" multiple accept=".mp4,.webm,.mkv,.mov,.mp3,.wav,.flac,.jpg,.png,.webp,.gif,.bmp"
+            data-input="media-files-upload">
+        <button data-command="media-files-upload">Upload</button>
+        <pre data-output="media-files-upload"></pre>
+        <br>
+        <br>
+        <label>Filename
+            <input data-input="media-files-delete" type="text">
+        </label>
+        <button data-command="media-files-delete">Delete file</button>
+        <br>
+        <br>
+        <label>Filename
+            <input data-input="media-files-download" type="text">
+        </label>
+        <button data-command="media-files-download">Download file</button>
+    </fieldset>
+
+    <h2>Playlists</h2>
+    <fieldset id="playlists-control">
+        <legend>Playlists Control</legend>
+
+        <button data-command="available-playlists">Get playlists</button>
+        <pre data-output="available-playlists"></pre>
+        <br>
+        <br>
+        <pre contenteditable="true" data-input="create-playlist"></pre>
+        <button data-command="create-playlist">Create playlist</button>
+        <br>
+        <br>
+        <br>
+        <label>Playlist name
+            <input data-input="delete-playlist" type="text">
+        </label>
+        <button data-command="delete-playlist">Delete playlist</button>
+        <br>
+        <br>
+        <br>
+        <label>Playlist name
+            <input type="text" data-input="available-playlist-files">
+        </label>
+        <button data-command="available-playlist-files">Get playlist files</button>
+        <pre data-output="available-playlist-files"></pre>
+    </fieldset>
+
+</body>
+
+</html>
